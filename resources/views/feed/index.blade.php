@@ -5,7 +5,7 @@
                 <h1 class="mb-4">Hello {{ auth()->user()->name }},</h1>
             </div>
             <div class="d-flex">
-                <div><a href="/user/edit">Account</a>&nbsp;&nbsp;&nbsp;</div>
+                <div><a href="/user/edit">Change Password</a>&nbsp;&nbsp;&nbsp;</div>
                 <div>
                     <form action="/user/logout" method="GET">
                         <button class="btn btn-primary" type="submit">Logout</button>
@@ -17,7 +17,7 @@
 
 
 
-
+        <br />
 
 
         <h1>Tweets</h1>
@@ -30,7 +30,7 @@
             </form>
         </div>
 
-
+        <br />
         @foreach ($tweets as $tweet)
             <div class="mt-4 mb-4 d-flex flex-row w-100 align-items-center justify-content-center">
                 <div class="w-75 shadow card p-3">
@@ -70,9 +70,10 @@
                     </div>
 
 
-                    <br />
+                    <br /><br />
                     <p>{{ $tweet->content }}</p>
-                    <p>{{ date_format(date_create($tweet->created_at), 'M d, Y') }}</p>
+                    <p style="font-size: 0.75rem;">
+                        {{ date_format(date_create($tweet->created_at), 'M d, Y') }}</p>
                     <div style="transform: translateX(-15px)" class="position-absolute top-25 end-0">
                         @if (auth()->user()->id == $tweet->creator_id)
                             <form method="POST" action="feed/{{ $tweet->id }}">

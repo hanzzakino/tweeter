@@ -1,15 +1,16 @@
 <x-layout>
-    <div>
+    <div class="container-sm w-25">
         <h1>Login page</h1>
-        <form action="/user/authenticate" method="POST">
+        <br />
+        <form class="forgm-group" action="/user/authenticate" method="POST">
             @csrf
 
-            <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" />
+            <input class="form-control w-75" type="email" name="email" placeholder="Email" value="{{ old('email') }}" />
             @error('email')
                 {{ $message }}
             @enderror
             <br />
-            <input type="password" name="password" placeholder="Password" />
+            <input class="form-control w-75" type="password" name="password" placeholder="Password" />
             @error('password')
                 {{ $message }}
             @enderror
@@ -19,8 +20,8 @@
                     {{ session('message') }}
                 </div>
             @endif
-            <button type="submit">Login</button>
-        </form>
+            <button class="btn btn-primary" type="submit">Login</button>
+        </form><br />
         <a href="/user/register">Create an Account</a>
     </div>
 </x-layout>
