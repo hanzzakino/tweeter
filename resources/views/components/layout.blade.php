@@ -12,11 +12,11 @@
 </head>
 
 <body>
-    <style>
+    {{-- <style>
         div {
             border: 1px dashed rgba(0, 0, 0, 0.342) !important;
         }
-    </style>
+    </style> --}}
     <main>
         {{ $slot }}
     </main>
