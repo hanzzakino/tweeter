@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Tweets;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -40,12 +41,14 @@ class UserController extends Controller
     {
 
         $formData = $request->validate([
-            'name' => 'required|min:3',
+            'password' => 'required|confirmed',
         ]);
+
+        $formData['password'] = bcrypt($formData['password']);
 
         User::where('id', auth()->user()->id)->update($formData);
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Password Updated Succesfully!');
     }
 
     public function edit()
@@ -63,6 +66,12 @@ class UserController extends Controller
 
         return redirect('/user/login');
     }
+
+    // public function like(Tweets $tweet)
+    // {
+    //     $tweet->delete();
+    //     return back()->with('success', 'Tweet Deleted');
+    // }
 
     public function authenticate(Request $request)
     {

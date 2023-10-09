@@ -16,10 +16,12 @@ use App\Http\Controllers\TweetsController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return redirect('/feed');
 })->name('home')->middleware('auth');
 
 Route::get('/feed', [TweetsController::class, 'index']);
+Route::post('/feed/create', [TweetsController::class, 'store']);
+Route::delete('/feed/{tweet}', [TweetsController::class, 'destroy']);
 
 
 Route::get('/user/login',  [UserController::class, 'login'])->name('login')->middleware('guest');

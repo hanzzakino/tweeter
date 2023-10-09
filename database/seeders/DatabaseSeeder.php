@@ -24,10 +24,10 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('ironman@example.com')
         ]);
 
-        Tweets::factory(10)->create([
-            'user_id' => 1,
+        Tweets::factory(1)->create([
+            'creator_name' => 'Tony Stark',
+            'creator_id' => 1,
             'content' => 'Sample Tweet',
-            'liked' => false,
         ]);
     }
 }
