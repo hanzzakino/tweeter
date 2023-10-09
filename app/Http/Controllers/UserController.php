@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Tweets;
+use App\Models\UserFollows;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 

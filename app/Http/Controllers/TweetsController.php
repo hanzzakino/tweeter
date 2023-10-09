@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Tweets;
 use App\Models\TweetLikes;
+use App\Models\UserFollows;
 use Illuminate\Http\Request;
 
 class TweetsController extends Controller
@@ -14,6 +15,7 @@ class TweetsController extends Controller
         return view('feed.index', [
             'tweets' => Tweets::latest()->get(),
             'tweet_likes' => TweetLikes::get(),
+            'user_follows' => UserFollows::get(),
         ]);
     }
 
@@ -55,6 +57,26 @@ class TweetsController extends Controller
         } else {
             foreach ($duplidates as $duplidate) {
                 TweetLikes::where('id', '=', $duplidate->id)->delete();
+            }
+            return redirect('/feed');
+        }
+    }
+
+    public function follow(Tweets $tweet)
+    {
+        $formData = [
+            'user_id' => $tweet->creator_id,
+            'follower_id' => auth()->user()->id
+        ];
+
+        $duplicates = UserFollows::where('user_id', $tweet->creator_id)->where('follower_id', auth()->user()->id)->get();
+        // dd($tweet->creator_id);
+        if ($duplicates->count() == 0) {
+            UserFollows::create($formData);
+            return redirect('/feed');
+        } else {
+            foreach ($duplicates as $duplidate) {
+                UserFollows::where('id', '=', $duplidate->id)->delete();
             }
             return redirect('/feed');
         }

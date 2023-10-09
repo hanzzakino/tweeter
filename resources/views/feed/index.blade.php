@@ -5,10 +5,10 @@
                 <h1 class="mb-4">Hello {{ auth()->user()->name }},</h1>
             </div>
             <div class="d-flex">
-                <div><a href="/user/edit">Account</a></div>
+                <div><a href="/user/edit">Account</a>&nbsp;&nbsp;&nbsp;</div>
                 <div>
                     <form action="/user/logout" method="GET">
-                        <button type="submit">Logout</button>
+                        <button class="btn btn-primary" type="submit">Logout</button>
                     </form>
                 </div>
             </div>
@@ -34,9 +34,45 @@
         @foreach ($tweets as $tweet)
             <div class="mt-4 mb-4 d-flex flex-row w-100 align-items-center justify-content-center">
                 <div class="w-75 shadow card p-3">
-                    <h3>{{ $tweet->creator_name }}:</h3>
-                    <p>{{ date_format(date_create($tweet->created_at), 'M d, Y') }}</p><br />
+                    <div class="d-flex flex-row align-items-center">
+                        <div>
+                            <h3>{{ $tweet->creator_name }} &nbsp;&nbsp;</h3>
+                        </div>
+                        @if (auth()->user()->id != $tweet->creator_id)
+                            <div>
+                                @php
+                                    $isUserFollowed = 'btn btn-info';
+                                    $count = 0;
+                                    foreach ($user_follows as $user_follow) {
+                                        if ($user_follow->user_id == $tweet->creator_id) {
+                                            $count += 1;
+                                            if (auth()->user()->id == $user_follow->follower_id) {
+                                                $isUserFollowed = 'btn btn-light';
+                                            }
+                                        }
+                                    }
+                                @endphp
+                                <form method="POST" action="/user/follow/{{ $tweet->id }}">
+                                    @csrf
+                                    <button class="{{ $isUserFollowed }}" type="submit">
+                                        @if ($isUserFollowed == 'btn btn-info')
+                                            Follow
+                                        @else
+                                            Unfollow
+                                        @endif
+                                    </button>
+                                </form>
+
+                            </div>
+                            <br />
+                            <p class="m-0">&nbsp;&nbsp;&nbsp;{{ $count }} followers</p>
+                        @endif
+                    </div>
+
+
+                    <br />
                     <p>{{ $tweet->content }}</p>
+                    <p>{{ date_format(date_create($tweet->created_at), 'M d, Y') }}</p>
                     <div style="transform: translateX(-15px)" class="position-absolute top-25 end-0">
                         @if (auth()->user()->id == $tweet->creator_id)
                             <form method="POST" action="feed/{{ $tweet->id }}">
