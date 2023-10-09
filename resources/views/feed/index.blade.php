@@ -13,13 +13,7 @@
                 </div>
             </div>
         </div>
-
-
-
-
         <br />
-
-
         <h1>Tweets</h1>
         <div class="card shadow p-3 mb-4 form-group">
             <form class="mb-3" method="POST" action="feed/create">
