@@ -47,10 +47,11 @@
                         @endif
                     </div>
                     <div class="align-self-end">
-                        <form method="POST" action="feed/like/{{ $tweet->id }}">
+                        <form method="POST" action="/feed/like/{{ $tweet->id }}">
                             @csrf
-                            <button class="btn btn-light" type="Submit"><i class="bi bi-heart-fill"></i></button>
+                            <button class="btn btn-light" type="submit"><i class="bi bi-heart-fill"></i></button>
                         </form>
+
                     </div>
                 </div>
 

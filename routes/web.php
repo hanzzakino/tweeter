@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TweetLikesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TweetsController;
@@ -21,6 +22,7 @@ Route::get('/', function () {
 
 Route::get('/feed', [TweetsController::class, 'index']);
 Route::post('/feed/create', [TweetsController::class, 'store']);
+Route::post('/feed/like/{tweet}', [TweetsController::class, 'like']);
 Route::delete('/feed/{tweet}', [TweetsController::class, 'destroy']);
 
 

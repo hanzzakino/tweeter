@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TweetLikes;
 use App\Models\Tweets;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,7 @@ class TweetsController extends Controller
     {
         return view('feed.index', [
             'tweets' => Tweets::get(),
+            'tweet_likes' => TweetLikes::get(),
         ]);
     }
 
@@ -35,5 +37,15 @@ class TweetsController extends Controller
     {
         $tweet->delete();
         return back()->with('success', 'Tweet Deleted');
+    }
+
+    public function like(Tweets $tweet)
+    {
+        $formData = [
+            'tweet_id' => $tweet->id,
+            'liker_id' => auth()->user()->id
+        ];
+        TweetLikes::create($formData);
+        return redirect('/feed');
     }
 }

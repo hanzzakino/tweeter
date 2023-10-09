@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class TweetLikes extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'tweet_id',
+        'liker_id',
+    ];
 }
